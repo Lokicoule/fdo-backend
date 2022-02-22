@@ -1,4 +1,5 @@
 import { InternalServerErrorException } from '@nestjs/common';
+import { Observable } from 'rxjs';
 
 const isInstanceOf = (target: any, expectedType: any) =>
   target && target instanceof expectedType;
@@ -17,6 +18,16 @@ const wrapper = (method: any) =>
 
       if (isInstanceOf(result, Promise)) {
         return result.then((asyncResult) => {
+          method.name &&
+            console.log(
+              `=== EXIT ASYNC ${method.name} (${JSON.stringify(
+                asyncResult,
+              )}) ===`,
+            );
+          return asyncResult;
+        });
+      } else if (isInstanceOf(result, Observable)) {
+        return result.subscribe((asyncResult) => {
           method.name &&
             console.log(
               `=== EXIT ASYNC ${method.name} (${JSON.stringify(
