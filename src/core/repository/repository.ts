@@ -4,11 +4,17 @@ import { Document, FilterQuery, Model } from 'mongoose';
 import { from, Observable, of } from 'rxjs';
 import { Logger } from 'src/core/decorators/logger/logger.decorator';
 import { NestedPartial } from 'src/core/types/partial.types';
+import { HelpersRepository } from './helpers.repository';
 import { IRepository } from './repository.d';
 
 @Injectable()
-export class Repository<T> implements IRepository<T> {
-  protected constructor(readonly model: Model<T & Document>) {}
+export abstract class Repository<T>
+  extends HelpersRepository
+  implements IRepository<T>
+{
+  protected constructor(readonly model: Model<T & Document>) {
+    super();
+  }
 
   public create(payload: NestedPartial<T>): Observable<T> {
     return from(new this.model(payload).save());
