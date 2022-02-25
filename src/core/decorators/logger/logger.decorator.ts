@@ -26,16 +26,6 @@ const wrapper = (method: any) =>
             );
           return asyncResult;
         });
-      } else if (isInstanceOf(result, Observable)) {
-        return result.subscribe((asyncResult) => {
-          method.name &&
-            console.log(
-              `=== EXIT ASYNC ${method.name} (${JSON.stringify(
-                asyncResult,
-              )}) ===`,
-            );
-          return asyncResult;
-        });
       }
 
       method.name &&

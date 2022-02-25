@@ -1,7 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { GqlEntity } from 'src/core/models/gql-entity';
+import { GqlEntity } from 'src/core/models/gql.entity';
 
 @Schema({ timestamps: true })
 @ObjectType()

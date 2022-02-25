@@ -3,7 +3,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 @Schema({ _id: false })
 @ObjectType()
-export class Parameter {
+export class KeyValue {
   @Field(() => String, { nullable: false })
   @Prop({ required: true, uppercase: true })
   key: string;
@@ -13,5 +13,4 @@ export class Parameter {
   value: string;
 }
 
-//export type ParameterDocument = Parameter & Document;
-export const ParameterSchema = SchemaFactory.createForClass(Parameter);
+export const KeyValueSchema = SchemaFactory.createForClass(KeyValue);
