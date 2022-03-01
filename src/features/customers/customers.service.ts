@@ -1,31 +1,46 @@
 import { Injectable } from '@nestjs/common';
+import { defer, switchMap } from 'rxjs';
+import { Service } from 'src/core/service';
+import { CustomerReferentialService } from '../customer-referential/customer-referential.service';
+import { UseCaseEnum } from '../customer-referential/enums/usecase.enum';
 import { CustomersRepository } from './customers.repository';
+import {
+  codeGenerationUseCase,
+  counterParameterUseCase,
+  retryWhenCodeAlreadyExist,
+} from './customers.usecases';
 import { Customer } from './entities/customer.entity';
+
 @Injectable()
-export class CustomersService {
-  constructor(private readonly repository: CustomersRepository) {}
-
-  createCustomer(payload: Partial<Customer>) {
-    return this.repository.create(payload);
+export class CustomersService extends Service<Customer> {
+  constructor(
+    private readonly customerRepository: CustomersRepository,
+    private readonly referentialService: CustomerReferentialService,
+  ) {
+    super(customerRepository);
   }
 
-  getCustomers() {
-    return this.repository.find();
-  }
+  override create(payload: Partial<Customer>) {
+    const { code } = payload;
+    if (code) return this.customerRepository.create(payload);
 
-  getCustomer(filter: Partial<Customer>) {
-    return this.repository.findOne(filter);
-  }
-
-  updateCustomer(id: string, payload: Partial<Customer>) {
-    return this.repository.updateById(id, payload);
-  }
-
-  removeCustomer(id: string) {
-    return this.repository.removeById(id);
-  }
-
-  removeCustomers(ids: string[]) {
-    return this.repository.removeFromArray(ids);
+    return defer(() =>
+      this.referentialService.getCustomerReferential(
+        UseCaseEnum.CODE_GENERATOR,
+      ),
+    ).pipe(
+      switchMap((customerReferential) =>
+        this.referentialService.createOrUpdateCustomerCode(
+          counterParameterUseCase(customerReferential),
+        ),
+      ),
+      switchMap((customerReferential) =>
+        this.customerRepository.create({
+          code: codeGenerationUseCase(customerReferential.parameters),
+          ...payload,
+        }),
+      ),
+      retryWhenCodeAlreadyExist(5),
+    );
   }
 }

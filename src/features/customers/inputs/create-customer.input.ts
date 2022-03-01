@@ -2,8 +2,8 @@ import { Field, InputType } from '@nestjs/graphql';
 
 @InputType()
 export class CreateCustomerInput {
-  @Field(() => String)
-  readonly code: string;
+  @Field(() => String, { nullable: true })
+  readonly code?: string;
 
   @Field(() => String)
   readonly naming: string;
