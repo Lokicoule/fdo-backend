@@ -1,42 +1,38 @@
 import { Injectable } from '@nestjs/common';
 import { isEmpty } from 'lodash';
 import { Document, FilterQuery, Model } from 'mongoose';
-import { from, Observable, of } from 'rxjs';
-import { Logger } from 'src/core/decorators/logger/logger.decorator';
+import { from, Observable } from 'rxjs';
 import { NestedPartial } from 'src/core/types/partial.types';
-import { HelpersRepository } from './helpers.repository';
-import { IRepository } from './repository.d';
+import { IRepository } from './repository.interface';
+import { Populate } from './populate/populate';
 
 @Injectable()
-export abstract class Repository<T>
-  extends HelpersRepository
-  implements IRepository<T>
-{
-  protected constructor(readonly model: Model<T & Document>) {
+export abstract class Repository<T> extends Populate implements IRepository<T> {
+  protected constructor(private readonly model: Model<T & Document>) {
     super();
   }
 
-  public create(payload: NestedPartial<T>): Observable<T> {
+  create(payload: NestedPartial<T>): Observable<T> {
     return from(new this.model(payload).save());
   }
 
-  public find(conditions?: Partial<Record<keyof T, unknown>>): Observable<T[]> {
+  find(conditions?: Partial<Record<keyof T, unknown>>): Observable<T[]> {
     return from(this.model.find(conditions as FilterQuery<T>)) as Observable<
       T[]
     >;
   }
 
-  public findOne(conditions: Partial<Record<keyof T, unknown>>): Observable<T> {
+  findOne(conditions: Partial<Record<keyof T, unknown>>): Observable<T> {
     if (isEmpty(conditions)) return;
 
     return from(this.model.findOne(conditions as FilterQuery<T>));
   }
 
-  public updateById(filter: any, entity: NestedPartial<T>): Observable<T> {
+  updateById(filter: any, entity: NestedPartial<T>): Observable<T> {
     return from(this.model.findOneAndUpdate(filter, entity));
   }
 
-  public createOrUpdate(filter: any, entity: NestedPartial<T>): Observable<T> {
+  createOrUpdate(filter: any, entity: NestedPartial<T>): Observable<T> {
     return from(
       this.model.findOneAndUpdate(filter, entity, {
         new: true,
@@ -45,11 +41,7 @@ export abstract class Repository<T>
     );
   }
 
-  remove(filter: any): Observable<any> {
-    return from(this.model.remove(filter));
-  }
-
-  public removeById(id: string): Observable<T> {
+  removeById(id: string): Observable<T> {
     return from(
       this.model.findOneAndRemove({
         _id: id,
@@ -57,13 +49,15 @@ export abstract class Repository<T>
     );
   }
 
-  public removeFromArray(ids: string[]): Observable<any> {
+  public removeByIds(ids: string[]): Observable<boolean> {
     return from(
-      this.model.remove({
-        _id: {
-          $in: ids,
-        },
-      }),
+      this.model
+        .deleteMany({
+          _id: {
+            $in: ids,
+          },
+        })
+        .then(({ deletedCount }) => deletedCount > 0),
     );
   }
 }

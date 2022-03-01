@@ -1,7 +1,8 @@
 import { Document } from 'mongoose';
 import { from, map, Observable } from 'rxjs';
+import { IPopulate } from './populate.interface';
 
-export abstract class HelpersRepository {
+export abstract class Populate implements IPopulate {
   populate<RT>(
     document: Document,
     path: string,
