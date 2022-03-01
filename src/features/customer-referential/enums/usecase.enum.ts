@@ -1,9 +1,9 @@
 import { registerEnumType } from '@nestjs/graphql';
 
-export enum UseCase {
+export enum UseCaseEnum {
   CODE_GENERATOR = 'CODE_GENERATOR',
 }
 
-registerEnumType(UseCase, {
-  name: 'UseCase',
+registerEnumType(UseCaseEnum, {
+  name: 'UseCaseEnum',
 });

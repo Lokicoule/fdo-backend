@@ -4,7 +4,6 @@ import { CustomerReferentialRepository } from './customer-referential.repository
 import { CustomerReferentialResolver } from './customer-referential.resolver';
 import { CustomerReferentialService } from './customer-referential.service';
 import {
-  CustomerReferential,
   CustomerReferentialName,
   CustomerReferentialSchema,
 } from './entities/customer-referential.entity';

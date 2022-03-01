@@ -1,15 +1,16 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { KeyValue, KeyValueSchema } from 'src/core/models/key-value.entity';
-import { UseCase } from '../enums/usecase.enum';
+import { ParameterEnum } from '../enums/parameter.enum';
+import { UseCaseEnum } from '../enums/usecase.enum';
+import { KeyValue, KeyValueSchema } from './key-value.entity';
 
 @Schema({ timestamps: true })
 @ObjectType()
 export class CustomerReferential {
-  @Field(() => UseCase)
+  @Field(() => UseCaseEnum)
   @Prop({ type: String, required: true, uppercase: true, unique: true })
-  useCase: UseCase;
+  useCase: UseCaseEnum;
 
   @Field(() => [KeyValue])
   @Prop({
@@ -17,7 +18,9 @@ export class CustomerReferential {
   })
   parameters: KeyValue[];
 }
+
 export const CustomerReferentialName = 'customer_referential';
+
 export type CustomerReferentialDocument = CustomerReferential & Document;
 export const CustomerReferentialSchema =
   SchemaFactory.createForClass(CustomerReferential);
