@@ -1,9 +1,11 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { ParameterEnum } from '../enums/parameter.enum';
-import { UseCaseEnum } from '../enums/usecase.enum';
-import { KeyValue, KeyValueSchema } from './key-value.entity';
+import { UseCaseEnum } from 'src/core/models/enums/usecase.enum';
+import {
+  KeyValue,
+  KeyValueSchema,
+} from 'src/core/models/key-value/key-value.entity';
 
 @Schema({ timestamps: true })
 @ObjectType()

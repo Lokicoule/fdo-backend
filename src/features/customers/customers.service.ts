@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { defer, switchMap } from 'rxjs';
 import { Service } from 'src/core/service';
 import { CustomerReferentialService } from '../customer-referential/customer-referential.service';
-import { UseCaseEnum } from '../customer-referential/enums/usecase.enum';
+import { UseCaseEnum } from 'src/core/models/enums/usecase.enum';
 import { CustomersRepository } from './customers.repository';
 import {
   codeGenerationUseCase,

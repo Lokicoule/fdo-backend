@@ -1,8 +1,8 @@
 import { map, MonoTypeOperatorFunction, retryWhen, scan } from 'rxjs';
 import { getValue } from 'src/core/helpers/string.helper';
+import { ParameterEnum } from 'src/core/models/enums/parameter.enum';
+import { KeyValue } from 'src/core/models/key-value/key-value.entity';
 import { CustomerReferential } from '../customer-referential/entities/customer-referential.entity';
-import { KeyValue } from '../customer-referential/entities/key-value.entity';
-import { ParameterEnum } from '../customer-referential/enums/parameter.enum';
 
 export function counterParameterUseCase(
   customerReferential: CustomerReferential,

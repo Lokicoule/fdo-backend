@@ -7,15 +7,14 @@ import {
   Resolver,
 } from '@nestjs/graphql';
 import { Observable } from 'rxjs';
+import { KeyValue } from 'src/core/models/key-value/key-value.entity';
 import { CustomerReferentialService } from './customer-referential.service';
-import { GetReferentialCustomerInput } from './inputs/get-customer-referential.input';
-import { UpsertCustomerCodeReferentialInput } from './inputs/upsert-customer-code-referential.input';
 import {
   CustomerReferential,
   CustomerReferentialDocument,
 } from './entities/customer-referential.entity';
-import { ParameterEnum } from './enums/parameter.enum';
-import { KeyValue } from './entities/key-value.entity';
+import { GetReferentialCustomerInput } from './inputs/get-customer-referential.input';
+import { UpsertCustomerCodeReferentialInput } from './inputs/upsert-customer-code-referential.input';
 
 @Resolver(() => CustomerReferential)
 export class CustomerReferentialResolver {

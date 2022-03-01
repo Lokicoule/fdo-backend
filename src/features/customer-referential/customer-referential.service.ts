@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { Observable } from 'rxjs';
+import { KeyValue } from 'src/core/models/key-value/key-value.entity';
 import { NestedPartial } from 'src/core/types/partial.types';
+import { UseCaseEnum } from 'src/core/models/enums/usecase.enum';
 import { CustomerReferentialRepository } from './customer-referential.repository';
 import {
   CustomerReferential,
   CustomerReferentialDocument,
 } from './entities/customer-referential.entity';
-import { KeyValue } from './entities/key-value.entity';
-import { UseCaseEnum } from './enums/usecase.enum';
 
 @Injectable()
 export class CustomerReferentialService {
