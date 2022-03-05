@@ -1,7 +1,8 @@
 import { Observable } from 'rxjs';
-import { NestedPartial } from 'src/core/types/partial.types';
+import { NestedPartial } from 'src/core/types/nested-partial.types';
+import { IPopulate } from './populate';
 
-interface IReadRepository<T> {
+interface IReadRepository<T> extends IPopulate {
   find(conditions?: Partial<Record<keyof T, unknown>>): Observable<T[]>;
   findOne(
     conditions: Partial<Record<keyof T, unknown>>,

@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { NestedPartial } from '../types/partial.types';
+import { NestedPartial } from '../types/nested-partial.types';
 
 export interface IService<T> {
   findOne(filter: Partial<T>): Observable<T>;

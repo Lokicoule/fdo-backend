@@ -1,21 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { defer, switchMap } from 'rxjs';
 import { Service } from 'src/core/service';
-import { CustomerReferentialService } from '../customer-referential/customer-referential.service';
-import { UseCaseEnum } from 'src/core/models/enums/usecase.enum';
+import { retryWhenDuplicate } from '../../core/helpers/observer.helper';
+import { ReferentialCustomerService } from '../referential-customer/referential-customer.service';
+import { UseCaseReferentialEnum } from '../referential/enums/usecase-referential.enum';
+import { generateCodeFromParamsUseCase } from '../referential/use-cases/generate-code-from-params/generate-code-from-params';
+import { getIncrementedCounterParamUseCase } from '../referential/use-cases/get-incremented-counter-param/get-incremented-counter-param';
 import { CustomersRepository } from './customers.repository';
-import {
-  codeGenerationUseCase,
-  counterParameterUseCase,
-  retryWhenCodeAlreadyExist,
-} from './customers.usecases';
 import { Customer } from './entities/customer.entity';
 
 @Injectable()
 export class CustomersService extends Service<Customer> {
   constructor(
     private readonly customerRepository: CustomersRepository,
-    private readonly referentialService: CustomerReferentialService,
+    private readonly referentialService: ReferentialCustomerService,
   ) {
     super(customerRepository);
   }
@@ -25,22 +23,22 @@ export class CustomersService extends Service<Customer> {
     if (code) return this.customerRepository.create(payload);
 
     return defer(() =>
-      this.referentialService.getCustomerReferential(
-        UseCaseEnum.CODE_GENERATOR,
-      ),
+      this.referentialService.findOne({
+        useCase: UseCaseReferentialEnum.CODE_GENERATOR,
+      }),
     ).pipe(
       switchMap((customerReferential) =>
-        this.referentialService.createOrUpdateCustomerCode(
-          counterParameterUseCase(customerReferential),
+        this.referentialService.createOrUpdateCodeGenerator(
+          getIncrementedCounterParamUseCase(customerReferential),
         ),
       ),
       switchMap((customerReferential) =>
         this.customerRepository.create({
-          code: codeGenerationUseCase(customerReferential.parameters),
+          code: generateCodeFromParamsUseCase(customerReferential.parameters),
           ...payload,
         }),
       ),
-      retryWhenCodeAlreadyExist(5),
+      retryWhenDuplicate(),
     );
   }
 }

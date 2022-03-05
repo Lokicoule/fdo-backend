@@ -1,21 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { defer, switchMap } from 'rxjs';
 import { Service } from 'src/core/service';
-import { ProductReferentialService } from '../product-referential/product-referential.service';
+import { retryWhenDuplicate } from '../../core/helpers/observer.helper';
+import { ReferentialProductService } from '../referential-product/referential-product.service';
+import { UseCaseReferentialEnum } from '../referential/enums/usecase-referential.enum';
+import { generateCodeFromParamsUseCase } from '../referential/use-cases/generate-code-from-params/generate-code-from-params';
+import { getIncrementedCounterParamUseCase } from '../referential/use-cases/get-incremented-counter-param/get-incremented-counter-param';
 import { ProductsRepository } from './products.repository';
-import {
-  codeGenerationUseCase,
-  counterParameterUseCase,
-  retryWhenCodeAlreadyExist,
-} from './products.usecases';
-import { Product } from './entities/product.entity';
-import { UseCaseEnum } from 'src/core/models/enums/usecase.enum';
+import { Product } from './entities/Product.entity';
 
 @Injectable()
 export class ProductsService extends Service<Product> {
   constructor(
     private readonly productRepository: ProductsRepository,
-    private readonly referentialService: ProductReferentialService,
+    private readonly referentialService: ReferentialProductService,
   ) {
     super(productRepository);
   }
@@ -25,20 +23,22 @@ export class ProductsService extends Service<Product> {
     if (code) return this.productRepository.create(payload);
 
     return defer(() =>
-      this.referentialService.getProductReferential(UseCaseEnum.CODE_GENERATOR),
+      this.referentialService.findOne({
+        useCase: UseCaseReferentialEnum.CODE_GENERATOR,
+      }),
     ).pipe(
-      switchMap((productReferential) =>
-        this.referentialService.createOrUpdateProductCode(
-          counterParameterUseCase(productReferential),
+      switchMap((ProductReferential) =>
+        this.referentialService.createOrUpdateCodeGenerator(
+          getIncrementedCounterParamUseCase(ProductReferential),
         ),
       ),
-      switchMap((productReferential) =>
+      switchMap((ProductReferential) =>
         this.productRepository.create({
-          code: codeGenerationUseCase(productReferential.parameters),
+          code: generateCodeFromParamsUseCase(ProductReferential.parameters),
           ...payload,
         }),
       ),
-      retryWhenCodeAlreadyExist(5),
+      retryWhenDuplicate(),
     );
   }
 }

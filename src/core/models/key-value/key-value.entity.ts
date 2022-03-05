@@ -1,13 +1,12 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { ParameterEnum } from '../enums/parameter.enum';
 
 @Schema({ _id: false })
 @ObjectType()
-export class KeyValue {
-  @Field(() => ParameterEnum, { nullable: false })
+export class KeyValue<T> {
+  @Field(() => String, { nullable: false })
   @Prop({ type: String, required: true, uppercase: true })
-  key: ParameterEnum;
+  key: T;
 
   @Field(() => String)
   @Prop({ type: String, required: true, uppercase: true })

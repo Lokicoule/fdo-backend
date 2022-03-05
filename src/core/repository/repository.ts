@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { isEmpty } from 'lodash';
 import { Document, FilterQuery, Model } from 'mongoose';
 import { from, Observable } from 'rxjs';
-import { NestedPartial } from 'src/core/types/partial.types';
+import { NestedPartial } from 'src/core/types/nested-partial.types';
 import { IRepository } from './repository.interface';
 import { Populate } from './populate/populate';
 
@@ -29,7 +29,11 @@ export abstract class Repository<T> extends Populate implements IRepository<T> {
   }
 
   updateById(filter: any, entity: NestedPartial<T>): Observable<T> {
-    return from(this.model.findOneAndUpdate(filter, entity));
+    return from(
+      this.model.findOneAndUpdate(filter, entity, {
+        upsert: true,
+      }),
+    );
   }
 
   createOrUpdate(filter: any, entity: NestedPartial<T>): Observable<T> {

@@ -5,7 +5,6 @@ import {
   Query,
   Resolver as NestResolver,
 } from '@nestjs/graphql';
-import { capitalize } from 'lodash';
 import { Observable } from 'rxjs';
 import { GqlEntity } from '../models/entity/entity.graphql';
 import { IService } from '../service';
@@ -22,7 +21,7 @@ export function Resolver<T extends GqlEntity, C, U, F>(
     constructor(readonly _service: IService<T>) {}
 
     @Query(() => [entityType], {
-      name: `get${capitalize(entityType.name)}s`,
+      name: `get${entityType.name}s`,
       nullable: true,
     })
     findAll() {
@@ -30,7 +29,7 @@ export function Resolver<T extends GqlEntity, C, U, F>(
     }
 
     @Query(() => entityType, {
-      name: `get${capitalize(entityType.name)}`,
+      name: `get${entityType.name}`,
       nullable: true,
     })
     findOne(@Args('filter', { type: () => findOneInputType }) filter: F) {
@@ -38,12 +37,12 @@ export function Resolver<T extends GqlEntity, C, U, F>(
     }
 
     @Mutation(() => entityType, {
-      name: `create${capitalize(entityType.name)}`,
+      name: `create${entityType.name}`,
     })
     create(
       @Args({
         type: () => createInputType,
-        name: `create${capitalize(entityType.name)}Input`,
+        name: `create${entityType.name}Input`,
       })
       createInput: C,
     ): Observable<T> {
@@ -51,12 +50,12 @@ export function Resolver<T extends GqlEntity, C, U, F>(
     }
 
     @Mutation(() => entityType, {
-      name: `update${capitalize(entityType.name)}`,
+      name: `update${entityType.name}`,
     })
     update(
       @Args({
         type: () => updateInputType,
-        name: `update${capitalize(entityType.name)}Input`,
+        name: `update${entityType.name}Input`,
       })
       payload: U,
     ) {
@@ -64,14 +63,14 @@ export function Resolver<T extends GqlEntity, C, U, F>(
     }
 
     @Mutation(() => entityType, {
-      name: `remove${capitalize(entityType.name)}`,
+      name: `remove${entityType.name}`,
     })
     removeById(@Args('id', { type: () => String }) id: string): Observable<T> {
       return this._service.removeById(id);
     }
 
     @Mutation(() => Boolean, {
-      name: `remove${capitalize(entityType.name)}s`,
+      name: `remove${entityType.name}s`,
     })
     removeByIds(
       @Args('ids', { type: () => [String] }) ids: string[],

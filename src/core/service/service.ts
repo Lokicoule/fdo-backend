@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { GqlEntity } from 'src/core/models/entity/entity.graphql';
-import { NestedPartial } from 'src/core/types/partial.types';
+import { NestedPartial } from 'src/core/types/nested-partial.types';
 import { IRepository } from '../repository';
 import { IService } from './service.interface';
 

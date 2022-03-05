@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { CustomerReferentialModule } from '../customer-referential/customer-referential.module';
+import { ReferentialCustomerModule } from '../referential-customer/referential-customer.module';
 import { CustomersRepository } from './customers.repository';
 import { CustomersResolver } from './customers.resolver';
 import { CustomersService } from './customers.service';
@@ -8,7 +8,7 @@ import { Customer, CustomerSchema } from './entities/customer.entity';
 
 @Module({
   imports: [
-    CustomerReferentialModule,
+    ReferentialCustomerModule,
     MongooseModule.forFeature([
       { name: Customer.name, schema: CustomerSchema },
     ]),
