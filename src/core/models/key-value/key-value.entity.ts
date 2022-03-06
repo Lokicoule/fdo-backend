@@ -1,16 +1,20 @@
+import { Type } from '@nestjs/common';
 import { Field, ObjectType } from '@nestjs/graphql';
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Prop, Schema } from '@nestjs/mongoose';
+import { IKeyValue } from './key-value.interface';
 
-@Schema({ _id: false })
-@ObjectType()
-export class KeyValue<T> {
-  @Field(() => String, { nullable: false })
-  @Prop({ type: String, required: true, uppercase: true })
-  key: T;
+export function createKeyValueEntity<T>(entityType: any): Type<IKeyValue<T>> {
+  @Schema({ _id: false })
+  @ObjectType({ isAbstract: true })
+  class KeyValueEntityHost implements IKeyValue<T> {
+    @Field(() => entityType, { nullable: false })
+    @Prop({ type: String, required: true, uppercase: true })
+    key: T;
 
-  @Field(() => String)
-  @Prop({ type: String, required: true, uppercase: true })
-  value: string;
+    @Field(() => String)
+    @Prop({ type: String, required: true, uppercase: true })
+    value: string;
+  }
+
+  return KeyValueEntityHost;
 }
-
-export const KeyValueSchema = SchemaFactory.createForClass(KeyValue);

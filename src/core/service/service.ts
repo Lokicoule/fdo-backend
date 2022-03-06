@@ -21,8 +21,8 @@ export abstract class Service<T extends GqlEntity> implements IService<T> {
     return this.repository.find();
   }
 
-  update(payload: Partial<T>): Observable<T> {
-    return this.repository.updateById(payload._id, payload);
+  update(id: any, payload: NestedPartial<T>): Observable<T> {
+    return this.repository.updateById(id, payload);
   }
 
   removeById(id: string): Observable<T> {

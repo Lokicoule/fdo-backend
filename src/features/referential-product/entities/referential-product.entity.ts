@@ -2,12 +2,11 @@ import { Field, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { GqlEntity } from 'src/core/models/entity/entity.graphql';
-import {
-  KeyValue,
-  KeyValueSchema,
-} from 'src/core/models/key-value/key-value.entity';
-import { ParameterReferentialEnum } from 'src/features/referential/enums/parameter-referential.enum';
 import { UseCaseReferentialEnum } from 'src/features/referential/enums/usecase-referential.enum';
+import {
+  ParameterReferentialProduct,
+  ParameterReferentialProductSchema,
+} from './parameter-referential-product.entity';
 
 @Schema({ timestamps: true })
 @ObjectType()
@@ -16,11 +15,11 @@ export class ReferentialProduct extends GqlEntity {
   @Prop({ type: String, required: true, uppercase: true, unique: true })
   useCase: UseCaseReferentialEnum;
 
-  @Field(() => [KeyValue], { nullable: true })
+  @Field(() => [ParameterReferentialProduct], { nullable: true })
   @Prop({
-    type: [KeyValueSchema],
+    type: [ParameterReferentialProductSchema],
   })
-  parameters: KeyValue<ParameterReferentialEnum>[];
+  parameters: ParameterReferentialProduct[];
 }
 
 export const ReferentialProductName = 'referential_product';

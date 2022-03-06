@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { Observable } from 'rxjs';
-import { KeyValue } from 'src/core/models/key-value/key-value.entity';
 import { ParameterReferentialEnum } from '../referential/enums/parameter-referential.enum';
 import { ReferentialService } from '../referential/service';
-import { ReferentialCustomerRepository } from './referential-customer.repository';
+import { ParameterReferentialCustomer } from './entities/parameter-referential-customer.entity';
 import {
   ReferentialCustomer,
   ReferentialCustomerDocument,
 } from './entities/referential-customer.entity';
+import { ReferentialCustomerRepository } from './referential-customer.repository';
 
 @Injectable()
 export class ReferentialCustomerService extends ReferentialService<ReferentialCustomer> {
@@ -19,13 +19,13 @@ export class ReferentialCustomerService extends ReferentialService<ReferentialCu
 
   populateParameters(
     document: ReferentialCustomerDocument,
-  ): Observable<KeyValue<ParameterReferentialEnum>[]> {
+  ): Observable<ParameterReferentialCustomer[]> {
     return this.referentialCustomerRepository.populate<
-      KeyValue<ParameterReferentialEnum>[]
+      ParameterReferentialCustomer[]
     >(
       document,
       'parameters',
-      KeyValue.name,
+      ParameterReferentialCustomer.name,
       (referential: ReferentialCustomer) => referential.parameters,
     );
   }

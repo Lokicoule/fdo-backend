@@ -1,9 +1,13 @@
-import { Args, Parent, ResolveField, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  Mutation,
+  Parent,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
 import { Observable } from 'rxjs';
-import { KeyValue } from 'src/core/models/key-value/key-value.entity';
-import { Resolver as CoreResolver } from 'src/core/resolver';
-import { ParameterReferentialEnum } from '../referential/enums/parameter-referential.enum';
-import { ReferentialProductService } from './referential-product.service';
+import { createBaseResolver } from '../../core/resolver/resolver';
+import { ParameterReferentialProduct } from './entities/parameter-referential-product.entity';
 import {
   ReferentialProduct,
   ReferentialProductDocument,
@@ -11,23 +15,39 @@ import {
 import { CreateReferentialProductInput } from './inputs/create-referential-product.input';
 import { GetReferentialProductInput } from './inputs/get-referential-product.input';
 import { UpdateReferentialProductInput } from './inputs/update-referential-product.input';
+import { ReferentialProductService } from './referential-product.service';
 
-@Resolver(() => ReferentialProduct)
-export class ReferentialProductResolver extends CoreResolver(
+const ReferentialProductBaseResolver = createBaseResolver(
   ReferentialProduct,
-  CreateReferentialProductInput,
-  UpdateReferentialProductInput,
   GetReferentialProductInput,
-) {
+);
+@Resolver(() => ReferentialProduct)
+export class ReferentialProductResolver extends ReferentialProductBaseResolver {
   constructor(private readonly service: ReferentialProductService) {
     super(service);
+  }
+
+  @Mutation(() => ReferentialProduct)
+  createReferentialProduct(
+    @Args('createReferentialProductInput')
+    payload: CreateReferentialProductInput,
+  ): Observable<ReferentialProduct> {
+    return this.service.create(payload);
+  }
+
+  @Mutation(() => ReferentialProduct)
+  updateReferentialProduct(
+    @Args('updateReferentialProductInput')
+    payload: UpdateReferentialProductInput,
+  ): Observable<ReferentialProduct> {
+    return this.service.update(payload.id, payload);
   }
 
   @ResolveField()
   parameters(
     @Parent() document: ReferentialProductDocument,
     @Args('populate') populate: boolean,
-  ): Observable<KeyValue<ParameterReferentialEnum>[]> {
+  ): Observable<ParameterReferentialProduct[]> {
     if (!populate) return;
     return this.service.populateParameters(document);
   }

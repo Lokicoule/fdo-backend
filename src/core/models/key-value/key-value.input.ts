@@ -1,14 +1,10 @@
 import { Type } from '@nestjs/common';
 import { Field, InputType } from '@nestjs/graphql';
+import { IKeyValue } from './key-value.interface';
 
-export interface IKeyValueInput<T> {
-  key: T;
-  value: string;
-}
-
-export function KeyValueInput<T>(entityType: any): Type<IKeyValueInput<T>> {
+export function createKeyValueInput<T>(entityType: any): Type<IKeyValue<T>> {
   @InputType({ isAbstract: true })
-  class KeyValueInputHost implements IKeyValueInput<T> {
+  class KeyValueInputHost implements IKeyValue<T> {
     @Field(() => entityType)
     key: T;
 

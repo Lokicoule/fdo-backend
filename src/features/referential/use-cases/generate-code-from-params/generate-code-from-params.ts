@@ -1,11 +1,12 @@
 import { UseCaseError } from 'src/core/errors/use-case.error';
 import { getValue } from 'src/core/helpers/string.helper';
-import { KeyValue } from 'src/core/models/key-value/key-value.entity';
+import { IKeyValue } from 'src/core/models/key-value/key-value.interface';
 import { ParameterReferentialEnum } from '../../enums/parameter-referential.enum';
 import { isEmpty } from 'lodash';
+import { ParameterType } from '../../types/referentialType';
 
-export function generateCodeFromParamsUseCase(
-  parameters: KeyValue<ParameterReferentialEnum>[],
+export function generateCodeFromParamsUseCase<T extends ParameterType>(
+  parameters: T[],
 ): string {
   if (isEmpty(parameters)) throw new UseCaseError("Parameters can't be empty.");
 

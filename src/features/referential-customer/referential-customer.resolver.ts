@@ -1,9 +1,13 @@
-import { Args, Parent, ResolveField, Resolver } from '@nestjs/graphql';
+import {
+  Args,
+  Mutation,
+  Parent,
+  ResolveField,
+  Resolver,
+} from '@nestjs/graphql';
 import { Observable } from 'rxjs';
-import { KeyValue } from 'src/core/models/key-value/key-value.entity';
-import { Resolver as CoreResolver } from 'src/core/resolver';
-import { ParameterReferentialEnum } from '../referential/enums/parameter-referential.enum';
-import { ReferentialCustomerService } from './referential-customer.service';
+import { createBaseResolver } from '../../core/resolver/resolver';
+import { ParameterReferentialCustomer } from './entities/parameter-referential-customer.entity';
 import {
   ReferentialCustomer,
   ReferentialCustomerDocument,
@@ -11,23 +15,39 @@ import {
 import { CreateReferentialCustomerInput } from './inputs/create-referential-customer.input';
 import { GetReferentialCustomerInput } from './inputs/get-referential-customer.input';
 import { UpdateReferentialCustomerInput } from './inputs/update-referential-customer.input';
+import { ReferentialCustomerService } from './referential-customer.service';
 
-@Resolver(() => ReferentialCustomer)
-export class ReferentialCustomerResolver extends CoreResolver(
+const ReferentialCustomerBaseResolver = createBaseResolver(
   ReferentialCustomer,
-  CreateReferentialCustomerInput,
-  UpdateReferentialCustomerInput,
   GetReferentialCustomerInput,
-) {
+);
+@Resolver(() => ReferentialCustomer)
+export class ReferentialCustomerResolver extends ReferentialCustomerBaseResolver {
   constructor(private readonly service: ReferentialCustomerService) {
     super(service);
+  }
+
+  @Mutation(() => ReferentialCustomer)
+  createReferentialCustomer(
+    @Args('createReferentialCustomerInput')
+    payload: CreateReferentialCustomerInput,
+  ): Observable<ReferentialCustomer> {
+    return this.service.create(payload);
+  }
+
+  @Mutation(() => ReferentialCustomer)
+  updateReferentialCustomer(
+    @Args('updateReferentialCustomerInput')
+    payload: UpdateReferentialCustomerInput,
+  ): Observable<ReferentialCustomer> {
+    return this.service.update(payload.id, payload);
   }
 
   @ResolveField()
   parameters(
     @Parent() document: ReferentialCustomerDocument,
     @Args('populate') populate: boolean,
-  ): Observable<KeyValue<ParameterReferentialEnum>[]> {
+  ): Observable<ParameterReferentialCustomer[]> {
     if (!populate) return;
     return this.service.populateParameters(document);
   }

@@ -1,4 +1,4 @@
-type ParameterType = {
+export type ParameterType = {
   key: any;
   value: any;
 };
