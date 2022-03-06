@@ -4,7 +4,7 @@ import { ProductsRepository } from './products.repository';
 import { ProductsResolver } from './products.resolver';
 import { ProductsService } from './products.service';
 import { Product, ProductSchema } from './entities/product.entity';
-import { ReferentialProductModule } from '../referential-product/referential-product.module';
+import { ReferentialProductModule } from 'src/features-referential/referential-product/referential-product.module';
 
 @Module({
   imports: [

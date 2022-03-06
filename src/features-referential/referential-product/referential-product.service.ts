@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Observable } from 'rxjs';
-import { ReferentialService } from '../referential/service';
+import { ReferentialService } from '../core/service';
 import { ParameterReferentialProduct } from './entities/parameter-referential-product.entity';
 import {
   ReferentialProduct,

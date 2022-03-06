@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Observable } from 'rxjs';
-import { ParameterReferentialEnum } from '../referential/enums/parameter-referential.enum';
-import { ReferentialService } from '../referential/service';
+import { ReferentialService } from '../core/service';
 import { ParameterReferentialCustomer } from './entities/parameter-referential-customer.entity';
 import {
   ReferentialCustomer,

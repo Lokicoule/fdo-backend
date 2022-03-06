@@ -2,7 +2,7 @@ import { Field, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { GqlEntity } from 'src/core/models/entity/entity.graphql';
-import { UseCaseReferentialEnum } from 'src/features/referential/enums/usecase-referential.enum';
+import { UseCaseReferentialEnum } from 'src/features-referential/core/enums/usecase-referential.enum';
 import {
   ParameterReferentialCustomer,
   ParameterReferentialCustomerSchema,

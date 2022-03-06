@@ -2,10 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { defer, switchMap } from 'rxjs';
 import { Service } from 'src/core/service';
 import { retryWhenDuplicate } from '../../core/helpers/observer.helper';
-import { ReferentialProductService } from '../referential-product/referential-product.service';
-import { UseCaseReferentialEnum } from '../referential/enums/usecase-referential.enum';
-import { generateCodeFromParamsUseCase } from '../referential/use-cases/generate-code-from-params/generate-code-from-params';
-import { getIncrementedCounterParamUseCase } from '../referential/use-cases/get-incremented-counter-param/get-incremented-counter-param';
+import { ReferentialProductService } from '../../features-referential/referential-product/referential-product.service';
+import { UseCaseReferentialEnum } from '../../features-referential/core/enums/usecase-referential.enum';
+import { generateCodeFromParamsUseCase } from '../../features-referential/core/use-cases/generate-code-from-params/generate-code-from-params';
+import { getIncrementedCounterParamUseCase } from '../../features-referential/core/use-cases/get-incremented-counter-param/get-incremented-counter-param';
 import { ProductsRepository } from './products.repository';
 import { Product } from './entities/Product.entity';
 

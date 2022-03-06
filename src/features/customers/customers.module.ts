@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ReferentialCustomerModule } from '../referential-customer/referential-customer.module';
+import { ReferentialCustomerModule } from '../../features-referential/referential-customer/referential-customer.module';
 import { CustomersRepository } from './customers.repository';
 import { CustomersResolver } from './customers.resolver';
 import { CustomersService } from './customers.service';
