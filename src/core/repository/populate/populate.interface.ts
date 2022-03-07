@@ -7,5 +7,6 @@ export interface IPopulate {
     path: string,
     model: string,
     cb: (any) => RT,
+    populate?: any[],
   ): Observable<RT>;
 }
