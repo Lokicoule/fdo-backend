@@ -1,19 +1,19 @@
 import { registerDecorator, ValidationOptions } from 'class-validator';
 import { ParameterReferentialEnumType } from '../../enums/parameter-referential.enum';
-import { ExistsKeyParamConstraint } from './exists-key-param.constraint';
+import { ParamsContainsKeysConstraint } from './params-contains-keys.constraint';
 
-export function ExistsKeyParamRule<T extends ParameterReferentialEnumType>(
+export function ParamsContainsKeysRule<T extends ParameterReferentialEnumType>(
   neededKeys: T[],
   validationOptions?: ValidationOptions,
 ) {
   return function (object: any, propertyName: string) {
     registerDecorator({
-      name: 'existsKeyParam',
+      name: 'paramsContainsKeys',
       target: object.constructor,
       propertyName: propertyName,
       constraints: neededKeys,
       options: validationOptions,
-      validator: ExistsKeyParamConstraint,
+      validator: ParamsContainsKeysConstraint,
     });
   };
 }

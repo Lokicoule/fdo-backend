@@ -6,9 +6,9 @@ import {
 } from 'class-validator';
 import { ParameterType } from '../../types/referentialType';
 
-@ValidatorConstraint({ name: 'ExistsKeyParam' })
+@ValidatorConstraint({ name: 'paramsContainsKeys' })
 @Injectable()
-export class ExistsKeyParamConstraint<T extends ParameterType>
+export class ParamsContainsKeysConstraint<T extends ParameterType>
   implements ValidatorConstraintInterface
 {
   validate(parameters: T[], args: ValidationArguments): boolean {

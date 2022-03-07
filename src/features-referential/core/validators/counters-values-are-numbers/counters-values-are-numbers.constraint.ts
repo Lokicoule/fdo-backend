@@ -7,9 +7,9 @@ import {
 import { ParameterReferentialEnum } from '../../enums/parameter-referential.enum';
 import { ParameterType } from '../../types/referentialType';
 
-@ValidatorConstraint({ name: 'counterKeyParam' })
+@ValidatorConstraint({ name: 'countersValuesAreNumbers' })
 @Injectable()
-export class CounterKeyParamConstraint<T extends ParameterType>
+export class CountersValuesAreNumbersConstraint<T extends ParameterType>
   implements ValidatorConstraintInterface
 {
   validate(parameters: T[]): boolean {
