@@ -34,8 +34,8 @@ export class ProductsService extends Service<Product> {
       ),
       switchMap((ProductReferential) =>
         this.productRepository.create({
-          code: generateCodeFromParamsUseCase(ProductReferential.parameters),
           ...payload,
+          code: generateCodeFromParamsUseCase(ProductReferential.parameters),
         }),
       ),
       retryWhenDuplicate(),

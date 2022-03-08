@@ -23,6 +23,5 @@ export function generateCodeFromParamsUseCase<T extends ParameterType>(
   )}${getValue(suffixParameter?.value)}`;
 
   if (!code) throw new UseCaseError("generated code cant't be null.");
-
   return code;
 }

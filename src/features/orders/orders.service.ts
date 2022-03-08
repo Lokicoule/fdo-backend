@@ -37,8 +37,8 @@ export class OrdersService extends Service<Order> {
       ),
       switchMap((orderReferential) =>
         this.orderRepository.create({
-          code: generateCodeFromParamsUseCase(orderReferential.parameters),
           ...payload,
+          code: generateCodeFromParamsUseCase(orderReferential.parameters),
         }),
       ),
       retryWhenDuplicate(),

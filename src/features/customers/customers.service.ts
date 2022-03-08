@@ -8,6 +8,7 @@ import { generateCodeFromParamsUseCase } from '../../features-referential/core/u
 import { getUpdatedReferentialByCounterIncrementUseCase } from '../../features-referential/core/use-cases/get-incremented-counter-param/get-updated-referential-by-counter-increment';
 import { CustomersRepository } from './customers.repository';
 import { Customer } from './entities/customer.entity';
+import { isEmpty } from 'lodash';
 
 @Injectable()
 export class CustomersService extends Service<Customer> {
@@ -20,8 +21,7 @@ export class CustomersService extends Service<Customer> {
 
   override create(payload: Partial<Customer>) {
     const { code } = payload;
-    if (code) return this.customerRepository.create(payload);
-
+    if (!isEmpty(code)) return this.customerRepository.create(payload);
     return defer(() =>
       this.referentialService.findOne({
         useCase: UseCaseReferentialEnum.CODE_GENERATOR,
@@ -34,8 +34,8 @@ export class CustomersService extends Service<Customer> {
       ),
       switchMap((customerReferential) =>
         this.customerRepository.create({
-          code: generateCodeFromParamsUseCase(customerReferential.parameters),
           ...payload,
+          code: generateCodeFromParamsUseCase(customerReferential.parameters),
         }),
       ),
       retryWhenDuplicate(),

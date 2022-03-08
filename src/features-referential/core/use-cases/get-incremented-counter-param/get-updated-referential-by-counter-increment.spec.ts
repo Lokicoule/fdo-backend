@@ -127,4 +127,43 @@ describe('getUpdatedReferentialByCounterIncrementUseCase', () => {
       );
     }).toThrow(UseCaseError);
   });
+
+  it('should return counter incremented and keep trailing 0 - test N°1', async () => {
+    expect(
+      getUpdatedReferentialByCounterIncrementUseCase({
+        parameters: [
+          {
+            key: ParameterReferentialEnum.COUNTER,
+            value: '000001',
+          },
+        ],
+      }),
+    ).toStrictEqual({
+      parameters: [
+        {
+          key: ParameterReferentialEnum.COUNTER,
+          value: '000002',
+        },
+      ],
+    });
+  });
+  it('should return counter incremented and keep trailing 0 - test N°2 ', async () => {
+    expect(
+      getUpdatedReferentialByCounterIncrementUseCase({
+        parameters: [
+          {
+            key: ParameterReferentialEnum.COUNTER,
+            value: '000068',
+          },
+        ],
+      }),
+    ).toStrictEqual({
+      parameters: [
+        {
+          key: ParameterReferentialEnum.COUNTER,
+          value: '000069',
+        },
+      ],
+    });
+  });
 });
