@@ -1,8 +1,7 @@
-import { UseCaseError } from 'src/core/errors/use-case.error';
-import { getValue } from 'src/core/helpers/string.helper';
-import { IKeyValue } from 'src/core/models/key-value/key-value.interface';
-import { ParameterReferentialEnum } from '../../enums/parameter-referential.enum';
 import { isEmpty } from 'lodash';
+import { UseCaseError } from '../../../../core/errors/use-case.error';
+import { getValue } from '../../../../core/helpers/string.helper';
+import { ParameterReferentialEnum } from '../../enums/parameter-referential.enum';
 import { ParameterType } from '../../types/referentialType';
 
 export function generateCodeFromParamsUseCase<T extends ParameterType>(

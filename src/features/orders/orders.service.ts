@@ -5,7 +5,7 @@ import { retryWhenDuplicate } from '../../core/helpers/observer.helper';
 import { ReferentialOrderService } from '../../features-referential/referential-order/referential-order.service';
 import { UseCaseReferentialEnum } from '../../features-referential/core/enums/usecase-referential.enum';
 import { generateCodeFromParamsUseCase } from '../../features-referential/core/use-cases/generate-code-from-params/generate-code-from-params';
-import { getIncrementedCounterParamUseCase } from '../../features-referential/core/use-cases/get-incremented-counter-param/get-incremented-counter-param';
+import { getUpdatedReferentialByCounterIncrementUseCase } from '../../features-referential/core/use-cases/get-incremented-counter-param/get-updated-referential-by-counter-increment';
 import { OrdersRepository } from './orders.repository';
 import { Order, OrderDocument } from './entities/order.entity';
 import { NestedPartial } from 'src/core/types/nested-partial.types';
@@ -32,7 +32,7 @@ export class OrdersService extends Service<Order> {
     ).pipe(
       switchMap((orderReferential) =>
         this.referentialService.createOrUpdateCodeGenerator(
-          getIncrementedCounterParamUseCase(orderReferential),
+          getUpdatedReferentialByCounterIncrementUseCase(orderReferential),
         ),
       ),
       switchMap((orderReferential) =>

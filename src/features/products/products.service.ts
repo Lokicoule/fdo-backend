@@ -5,7 +5,7 @@ import { retryWhenDuplicate } from '../../core/helpers/observer.helper';
 import { ReferentialProductService } from '../../features-referential/referential-product/referential-product.service';
 import { UseCaseReferentialEnum } from '../../features-referential/core/enums/usecase-referential.enum';
 import { generateCodeFromParamsUseCase } from '../../features-referential/core/use-cases/generate-code-from-params/generate-code-from-params';
-import { getIncrementedCounterParamUseCase } from '../../features-referential/core/use-cases/get-incremented-counter-param/get-incremented-counter-param';
+import { getUpdatedReferentialByCounterIncrementUseCase } from '../../features-referential/core/use-cases/get-incremented-counter-param/get-updated-referential-by-counter-increment';
 import { ProductsRepository } from './products.repository';
 import { Product } from './entities/Product.entity';
 
@@ -29,7 +29,7 @@ export class ProductsService extends Service<Product> {
     ).pipe(
       switchMap((ProductReferential) =>
         this.referentialService.createOrUpdateCodeGenerator(
-          getIncrementedCounterParamUseCase(ProductReferential),
+          getUpdatedReferentialByCounterIncrementUseCase(ProductReferential),
         ),
       ),
       switchMap((ProductReferential) =>
