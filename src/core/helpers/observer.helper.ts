@@ -37,11 +37,8 @@ export function genericRetryWhen<T>({
               allowedStatusCodes.find((e) => assertError(error, e)) ||
               !excludedStatusCodes.find((e) => assertError(error, e))
             ) {
-              console.error(error);
               if (count < maxRetryAttempts) return { count, error };
-              throw new TechnicalError(
-                'Counter integrity failure. Try again to correct.',
-              );
+              throw new TechnicalError('Try again later.');
             }
             throw error;
           }),
