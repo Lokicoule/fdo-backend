@@ -32,12 +32,8 @@ export abstract class Repository<T> extends Populate implements IRepository<T> {
     return from(this.model.findOne(conditions as FilterQuery<T>));
   }
 
-  updateById(filter: any, entity: NestedPartial<T>): Observable<T> {
-    return from(
-      this.model.findOneAndUpdate(filter, entity, {
-        upsert: true,
-      }),
-    );
+  updateById(id: any, entity: NestedPartial<T>): Observable<T> {
+    return from(this.model.findByIdAndUpdate(id, entity));
   }
 
   createOrUpdate(filter: any, entity: NestedPartial<T>): Observable<T> {

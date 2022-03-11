@@ -13,7 +13,7 @@ interface IReadRepository<T> extends IPopulate {
 }
 interface IWriteRepository<T> {
   create(item: NestedPartial<T>): Observable<T>;
-  updateById(filter: any, item: NestedPartial<T>): Observable<T>;
+  updateById(id: any, item: NestedPartial<T>): Observable<T>;
   createOrUpdate(filter: any, item: T): Observable<T>;
   removeById(id: any): Observable<T>;
   removeByIds(ids: any[]): Observable<boolean>;
