@@ -3,11 +3,10 @@ import { Observable } from 'rxjs';
 import { createBaseResolver } from '../../core/resolver/resolver';
 import { Product } from './entities/product.entity';
 import { CreateProductInput } from './inputs/create-product.input';
-import { GetProductInput } from './inputs/get-product.input';
 import { UpdateProductInput } from './inputs/update-product.input';
 import { ProductsService } from './products.service';
 
-const ProductsBaseResolver = createBaseResolver(Product, GetProductInput);
+const ProductsBaseResolver = createBaseResolver(Product);
 @Resolver(() => Product)
 export class ProductsResolver extends ProductsBaseResolver {
   constructor(private readonly service: ProductsService) {
@@ -24,9 +23,11 @@ export class ProductsResolver extends ProductsBaseResolver {
 
   @Mutation(() => Product)
   updateProduct(
+    @Args('id')
+    id: string,
     @Args('updateProductInput')
     payload: UpdateProductInput,
   ): Observable<Product> {
-    return this.service.update(payload.id, payload);
+    return this.service.update(id, payload);
   }
 }

@@ -4,6 +4,7 @@ import { IPopulate } from './populate';
 
 interface IReadRepository<T> extends IPopulate {
   find(conditions?: Partial<Record<keyof T, unknown>>): Observable<T[]>;
+  findById(id: any): Observable<T>;
   findOne(
     conditions: Partial<Record<keyof T, unknown>>,
     projection?: string | Record<string, unknown>,

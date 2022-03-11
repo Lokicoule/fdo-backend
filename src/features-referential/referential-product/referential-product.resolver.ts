@@ -13,14 +13,10 @@ import {
   ReferentialProductDocument,
 } from './entities/referential-product.entity';
 import { CreateReferentialProductInput } from './inputs/create-referential-product.input';
-import { GetReferentialProductInput } from './inputs/get-referential-product.input';
 import { UpdateReferentialProductInput } from './inputs/update-referential-product.input';
 import { ReferentialProductService } from './referential-product.service';
 
-const ReferentialProductBaseResolver = createBaseResolver(
-  ReferentialProduct,
-  GetReferentialProductInput,
-);
+const ReferentialProductBaseResolver = createBaseResolver(ReferentialProduct);
 @Resolver(() => ReferentialProduct)
 export class ReferentialProductResolver extends ReferentialProductBaseResolver {
   constructor(private readonly service: ReferentialProductService) {

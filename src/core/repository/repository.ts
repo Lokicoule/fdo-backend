@@ -22,6 +22,10 @@ export abstract class Repository<T> extends Populate implements IRepository<T> {
     >;
   }
 
+  findById(id: any): Observable<T> {
+    return from(this.model.findById(id));
+  }
+
   findOne(conditions: Partial<Record<keyof T, unknown>>): Observable<T> {
     if (isEmpty(conditions)) return;
 

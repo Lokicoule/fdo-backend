@@ -10,12 +10,11 @@ import { GqlEntity } from '../models/entity/entity.graphql';
 import { IService } from '../service';
 import { IResolver } from './resolver.interface';
 
-export function createBaseResolver<ObjectType extends GqlEntity, FilterType>(
+export function createBaseResolver<ObjectType extends GqlEntity>(
   entityTypeRef: Type<ObjectType>,
-  findOneInputTypeRef: Type<FilterType>,
-): Type<IResolver<ObjectType, FilterType>> {
+): Type<IResolver<ObjectType>> {
   @NestResolver({ isAbstract: true })
-  class ResolverHost implements IResolver<ObjectType, FilterType> {
+  class ResolverHost implements IResolver<ObjectType> {
     constructor(readonly service: IService<ObjectType>) {}
 
     @Query(() => [entityTypeRef], {
@@ -30,10 +29,8 @@ export function createBaseResolver<ObjectType extends GqlEntity, FilterType>(
       name: `get${entityTypeRef.name}`,
       nullable: true,
     })
-    findOne(
-      @Args('filter', { type: () => findOneInputTypeRef }) filter: FilterType,
-    ) {
-      return this.service.findOne(filter);
+    findById(@Args('id', { type: () => String }) id: string) {
+      return this.service.findById(id);
     }
 
     @Mutation(() => entityTypeRef, {

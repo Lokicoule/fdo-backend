@@ -7,14 +7,13 @@ import {
 } from '@nestjs/graphql';
 import { Observable } from 'rxjs';
 import { createBaseResolver } from '../../core/resolver/resolver';
-import { OrdersService } from './orders.service';
+import { OrderItem } from './entities/order-item.entity';
 import { Order, OrderDocument } from './entities/order.entity';
 import { CreateOrderInput } from './inputs/create-order.input';
-import { GetOrderInput } from './inputs/get-order.input';
 import { UpdateOrderInput } from './inputs/update-order.input';
-import { OrderItem } from './entities/order-item.entity';
+import { OrdersService } from './orders.service';
 
-const OrdersBaseResolver = createBaseResolver(Order, GetOrderInput);
+const OrdersBaseResolver = createBaseResolver(Order);
 
 @Resolver(() => Order)
 export class OrdersResolver extends OrdersBaseResolver {
@@ -32,10 +31,12 @@ export class OrdersResolver extends OrdersBaseResolver {
 
   @Mutation(() => Order)
   updateOrder(
+    @Args('id')
+    id: string,
     @Args('updateOrderInput')
     payload: UpdateOrderInput,
   ): Observable<Order> {
-    return this.service.update(payload.id, payload);
+    return this.service.update(id, payload);
   }
 
   @ResolveField()

@@ -4,10 +4,9 @@ import { createBaseResolver } from '../../core/resolver/resolver';
 import { CustomersService } from './customers.service';
 import { Customer } from './entities/customer.entity';
 import { CreateCustomerInput } from './inputs/create-customer.input';
-import { GetCustomerInput } from './inputs/get-customer.input';
 import { UpdateCustomerInput } from './inputs/update-customer.input';
 
-const CustomersBaseResolver = createBaseResolver(Customer, GetCustomerInput);
+const CustomersBaseResolver = createBaseResolver(Customer);
 
 @Resolver(() => Customer)
 export class CustomersResolver extends CustomersBaseResolver {
@@ -25,9 +24,10 @@ export class CustomersResolver extends CustomersBaseResolver {
 
   @Mutation(() => Customer)
   updateCustomer(
+    @Args('id') id: string,
     @Args('updateCustomerInput')
     payload: UpdateCustomerInput,
   ): Observable<Customer> {
-    return this.service.update(payload.id, payload);
+    return this.service.update(id, payload);
   }
 }

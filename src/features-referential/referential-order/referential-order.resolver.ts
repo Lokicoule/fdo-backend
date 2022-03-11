@@ -13,14 +13,10 @@ import {
   ReferentialOrderDocument,
 } from './entities/referential-order.entity';
 import { CreateReferentialOrderInput } from './inputs/create-referential-order.input';
-import { GetReferentialOrderInput } from './inputs/get-referential-order.input';
 import { UpdateReferentialOrderInput } from './inputs/update-referential-order.input';
 import { ReferentialOrderService } from './referential-order.service';
 
-const ReferentialOrderBaseResolver = createBaseResolver(
-  ReferentialOrder,
-  GetReferentialOrderInput,
-);
+const ReferentialOrderBaseResolver = createBaseResolver(ReferentialOrder);
 @Resolver(() => ReferentialOrder)
 export class ReferentialOrderResolver extends ReferentialOrderBaseResolver {
   constructor(private readonly service: ReferentialOrderService) {
