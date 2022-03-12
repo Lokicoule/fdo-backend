@@ -27,6 +27,9 @@ This document present motivation behind technical choices.
 
 ### Core->Service
 
+Lors de la création, on incrémente le code avant pour palier à de potentiel blocage si le code existe déjà.
+Le retry permet de débloquer cette situation. Ce cas de figure ne devrait pas arriver.
+
 ### Core->Repository
 
 ### Core->Models
