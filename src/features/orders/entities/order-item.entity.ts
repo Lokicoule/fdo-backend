@@ -6,7 +6,7 @@ import { Product } from 'src/features/products/entities/product.entity';
 @Schema({ _id: false })
 @ObjectType()
 export class OrderItem {
-  @Field(() => Product)
+  @Field(() => Product, { nullable: true })
   @Prop({
     type: MongooseSchema.Types.ObjectId,
     ref: Product.name,
