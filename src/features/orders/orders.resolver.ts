@@ -55,7 +55,7 @@ export class OrdersResolver extends OrdersBaseResolver {
 
   @ResolveField()
   customer(
-    @Parent() document: CustomerDocument,
+    @Parent() document: OrderDocument,
     @Args('populate') populate: boolean,
   ): Observable<Customer> {
     if (!populate) return;

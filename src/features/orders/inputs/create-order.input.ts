@@ -1,4 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql';
+import { Schema as MongooseSchema } from 'mongoose';
 import { OrderItemInput } from './order-item.input';
 
 @InputType()
@@ -11,6 +12,9 @@ export class CreateOrderInput {
 
   @Field(() => Date, { nullable: true })
   readonly dueDate: Date;
+
+  @Field(() => String)
+  readonly customer: MongooseSchema.Types.ObjectId;
 
   @Field(() => [OrderItemInput], { nullable: true })
   readonly items: OrderItemInput[];
