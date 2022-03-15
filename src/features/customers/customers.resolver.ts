@@ -1,4 +1,5 @@
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
+import { plainToClass } from 'class-transformer';
 import { Observable } from 'rxjs';
 import { createBaseResolver } from '../../core/resolver/resolver';
 import { CustomersService } from './customers.service';
@@ -19,7 +20,7 @@ export class CustomersResolver extends CustomersBaseResolver {
     @Args('createCustomerInput')
     payload: CreateCustomerInput,
   ): Observable<Customer> {
-    return this.service.create(payload);
+    return this.service.create(plainToClass(Customer, payload));
   }
 
   @Mutation(() => Customer)
@@ -28,6 +29,6 @@ export class CustomersResolver extends CustomersBaseResolver {
     @Args('updateCustomerInput')
     payload: UpdateCustomerInput,
   ): Observable<Customer> {
-    return this.service.update(id, payload);
+    return this.service.update(id, plainToClass(Customer, payload));
   }
 }

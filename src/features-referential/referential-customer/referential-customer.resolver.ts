@@ -5,6 +5,7 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql';
+import { plainToClass } from 'class-transformer';
 import { Observable } from 'rxjs';
 import { createBaseResolver } from '../../core/resolver/resolver';
 import { ParameterReferentialCustomer } from './entities/parameter-referential-customer.entity';
@@ -28,7 +29,7 @@ export class ReferentialCustomerResolver extends ReferentialCustomerBaseResolver
     @Args('createReferentialCustomerInput')
     payload: CreateReferentialCustomerInput,
   ): Observable<ReferentialCustomer> {
-    return this.service.create(payload);
+    return this.service.create(plainToClass(ReferentialCustomer, payload));
   }
 
   @Mutation(() => ReferentialCustomer)
@@ -36,7 +37,10 @@ export class ReferentialCustomerResolver extends ReferentialCustomerBaseResolver
     @Args('updateReferentialCustomerInput')
     payload: UpdateReferentialCustomerInput,
   ): Observable<ReferentialCustomer> {
-    return this.service.update(payload.id, payload);
+    return this.service.update(
+      payload.id,
+      plainToClass(ReferentialCustomer, payload),
+    );
   }
 
   @ResolveField()

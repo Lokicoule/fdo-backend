@@ -18,7 +18,7 @@ export class ProductsService extends Service<Product> {
     super(productRepository);
   }
 
-  override create(payload: Partial<Product>) {
+  override create(payload: Product) {
     const { code } = payload;
     if (code) return this.productRepository.create(payload);
 

@@ -1,4 +1,5 @@
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
+import { plainToClass } from 'class-transformer';
 import { Observable } from 'rxjs';
 import { createBaseResolver } from '../../core/resolver/resolver';
 import { Product } from './entities/product.entity';
@@ -18,7 +19,7 @@ export class ProductsResolver extends ProductsBaseResolver {
     @Args('createProductInput')
     payload: CreateProductInput,
   ): Observable<Product> {
-    return this.service.create(payload);
+    return this.service.create(plainToClass(Product, payload));
   }
 
   @Mutation(() => Product)
@@ -28,6 +29,6 @@ export class ProductsResolver extends ProductsBaseResolver {
     @Args('updateProductInput')
     payload: UpdateProductInput,
   ): Observable<Product> {
-    return this.service.update(id, payload);
+    return this.service.update(id, plainToClass(Product, payload));
   }
 }

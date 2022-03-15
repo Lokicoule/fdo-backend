@@ -5,8 +5,13 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql';
+import { plainToClass } from 'class-transformer';
 import { Observable } from 'rxjs';
 import { createBaseResolver } from '../../core/resolver/resolver';
+import {
+  Customer,
+  CustomerDocument,
+} from '../customers/entities/customer.entity';
 import { OrderItem } from './entities/order-item.entity';
 import { Order, OrderDocument } from './entities/order.entity';
 import { CreateOrderInput } from './inputs/create-order.input';
@@ -26,7 +31,7 @@ export class OrdersResolver extends OrdersBaseResolver {
     @Args('createOrderInput')
     payload: CreateOrderInput,
   ): Observable<Order> {
-    return this.service.create(payload);
+    return this.service.create(plainToClass(Order, payload));
   }
 
   @Mutation(() => Order)
@@ -36,7 +41,7 @@ export class OrdersResolver extends OrdersBaseResolver {
     @Args('updateOrderInput')
     payload: UpdateOrderInput,
   ): Observable<Order> {
-    return this.service.update(id, payload);
+    return this.service.update(id, plainToClass(Order, payload));
   }
 
   @ResolveField()
@@ -46,5 +51,14 @@ export class OrdersResolver extends OrdersBaseResolver {
   ): Observable<OrderItem[]> {
     if (!populate) return;
     return this.service.populateItems(document);
+  }
+
+  @ResolveField()
+  customer(
+    @Parent() document: CustomerDocument,
+    @Args('populate') populate: boolean,
+  ): Observable<Customer> {
+    if (!populate) return;
+    return this.service.populateCustomer(document);
   }
 }

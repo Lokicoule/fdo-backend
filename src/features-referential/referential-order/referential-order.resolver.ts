@@ -5,6 +5,7 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql';
+import { plainToClass } from 'class-transformer';
 import { Observable } from 'rxjs';
 import { createBaseResolver } from '../../core/resolver/resolver';
 import { ParameterReferentialOrder } from './entities/parameter-referential-order.entity';
@@ -28,7 +29,7 @@ export class ReferentialOrderResolver extends ReferentialOrderBaseResolver {
     @Args('createReferentialOrderInput')
     payload: CreateReferentialOrderInput,
   ): Observable<ReferentialOrder> {
-    return this.service.create(payload);
+    return this.service.create(plainToClass(ReferentialOrder, payload));
   }
 
   @Mutation(() => ReferentialOrder)
@@ -36,7 +37,10 @@ export class ReferentialOrderResolver extends ReferentialOrderBaseResolver {
     @Args('updateReferentialOrderInput')
     payload: UpdateReferentialOrderInput,
   ): Observable<ReferentialOrder> {
-    return this.service.update(payload.id, payload);
+    return this.service.update(
+      payload.id,
+      plainToClass(ReferentialOrder, payload),
+    );
   }
 
   @ResolveField()

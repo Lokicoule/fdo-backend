@@ -19,7 +19,7 @@ export class CustomersService extends Service<Customer> {
     super(customerRepository);
   }
 
-  override create(payload: Partial<Customer>) {
+  override create(payload: Customer) {
     const { code } = payload;
     if (!isEmpty(code)) return this.customerRepository.create(payload);
     return defer(() =>

@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { GqlEntity } from 'src/core/models/entity/entity.graphql';
-import { NestedPartial } from 'src/core/types/nested-partial.types';
 import { IRepository } from '../repository';
 import { IService } from './service.interface';
 
@@ -9,7 +8,7 @@ import { IService } from './service.interface';
 export abstract class Service<T extends GqlEntity> implements IService<T> {
   protected constructor(private readonly repository: IRepository<T>) {}
 
-  create(payload: NestedPartial<T>): Observable<T> {
+  create(payload: T): Observable<T> {
     return this.repository.create(payload);
   }
 
@@ -25,7 +24,7 @@ export abstract class Service<T extends GqlEntity> implements IService<T> {
     return this.repository.findById(id);
   }
 
-  update(id: any, payload: NestedPartial<T>): Observable<T> {
+  update(id: any, payload: T): Observable<T> {
     return this.repository.updateById(id, payload);
   }
 
