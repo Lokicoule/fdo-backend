@@ -34,13 +34,11 @@ export class ReferentialProductResolver extends ReferentialProductBaseResolver {
 
   @Mutation(() => ReferentialProduct)
   updateReferentialProduct(
+    @Args('id') id: string,
     @Args('updateReferentialProductInput')
     payload: UpdateReferentialProductInput,
   ): Observable<ReferentialProduct> {
-    return this.service.update(
-      payload.id,
-      plainToClass(ReferentialProduct, payload),
-    );
+    return this.service.update(id, plainToClass(ReferentialProduct, payload));
   }
 
   @ResolveField()

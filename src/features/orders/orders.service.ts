@@ -23,15 +23,17 @@ export class OrdersService extends Service<Order> {
   }
 
   override create(payload: Order) {
-    const { code, ...others } = payload;
+    const { code, billingDate: _billingDate, ...others } = payload;
+    const billingDate = _billingDate || new Date();
     const dueDate = this.calculateDueDateFromBillingDate(
       payload.dueDate,
-      payload.billingDate,
+      billingDate,
     );
     if (code)
       return this.orderRepository.create({
         ...payload,
         dueDate,
+        billingDate,
       });
 
     return defer(() =>
@@ -49,6 +51,7 @@ export class OrdersService extends Service<Order> {
           ...others,
           code: generateCodeFromParamsUseCase(orderReferential.parameters),
           dueDate,
+          billingDate,
         }),
       ),
       retryWhenDuplicate(),

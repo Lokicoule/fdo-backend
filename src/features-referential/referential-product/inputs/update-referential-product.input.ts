@@ -4,7 +4,4 @@ import { CreateReferentialProductInput } from './create-referential-product.inpu
 @InputType()
 export class UpdateReferentialProductInput extends PartialType(
   CreateReferentialProductInput,
-) {
-  @Field(() => String)
-  readonly id: string;
-}
+) {}

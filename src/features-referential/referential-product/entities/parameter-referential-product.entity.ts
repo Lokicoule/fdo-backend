@@ -5,7 +5,7 @@ import { ParameterReferentialEnum } from 'src/features-referential/core/enums/pa
 
 const KeyValueEntity = createKeyValueEntity(ParameterReferentialEnum);
 
-@Schema({ _id: false })
+@Schema()
 @ObjectType()
 export class ParameterReferentialProduct extends KeyValueEntity {}
 

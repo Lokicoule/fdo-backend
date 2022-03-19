@@ -11,6 +11,10 @@ import { GraphQLModule as NestGraphQLModule } from '@nestjs/graphql';
       playground: true,
       debug: true,
       introspection: true,
+      formatResponse: (response) => {
+        console.log(JSON.stringify(response));
+        return response;
+      },
       formatError: (error) => {
         return {
           code: error.extensions && error.extensions.code,

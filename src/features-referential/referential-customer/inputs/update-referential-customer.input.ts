@@ -4,7 +4,4 @@ import { CreateReferentialCustomerInput } from './create-referential-customer.in
 @InputType()
 export class UpdateReferentialCustomerInput extends PartialType(
   CreateReferentialCustomerInput,
-) {
-  @Field(() => String)
-  readonly id: string;
-}
+) {}
