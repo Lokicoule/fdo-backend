@@ -1,0 +1,57 @@
+{
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/fdo-gateway/src",
+  "monorepo": true,
+  "root": "apps/fdo-gateway",
+  "compilerOptions": {
+    "webpack": true,
+    "tsConfigPath": "apps/fdo-gateway/tsconfig.app.json"
+  },
+  "projects": {
+    "fdo-gateway": {
+      "type": "application",
+      "root": "apps/fdo-gateway",
+      "entryFile": "main",
+      "sourceRoot": "apps/fdo-gateway/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/fdo-gateway/tsconfig.app.json"
+      }
+    },
+    "fdo-customers-application": {
+      "type": "application",
+      "root": "apps/fdo-customers-application",
+      "entryFile": "main",
+      "sourceRoot": "apps/fdo-customers-application/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/fdo-customers-application/tsconfig.app.json"
+      }
+    },
+    "fdo-orders-application": {
+      "type": "application",
+      "root": "apps/fdo-orders-application",
+      "entryFile": "main",
+      "sourceRoot": "apps/fdo-orders-application/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/fdo-orders-application/tsconfig.app.json"
+      }
+    },
+    "fdo-products-application": {
+      "type": "application",
+      "root": "apps/fdo-products-application",
+      "entryFile": "main",
+      "sourceRoot": "apps/fdo-products-application/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/fdo-products-application/tsconfig.app.json"
+      }
+    },
+    "fdo-core": {
+      "type": "library",
+      "root": "libs/fdo-core",
+      "entryFile": "index",
+      "sourceRoot": "libs/fdo-core/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/fdo-core/tsconfig.lib.json"
+      }
+    }
+  }
+}
