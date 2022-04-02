@@ -3,14 +3,16 @@ import {
   MongooseModuleOptions,
   MongooseOptionsFactory,
 } from '@nestjs/mongoose';
-import { MongooseConfig } from './mongoose.config';
+import { MongoDBDatabaseProviderConfiguration } from './mongodb.provider.config';
 import { ConfigType } from '@nestjs/config';
 
 @Injectable()
-export class MongooseConfigService implements MongooseOptionsFactory {
+export class MongoDBDatabaseProviderConfigurationService
+  implements MongooseOptionsFactory
+{
   constructor(
-    @Inject(MongooseConfig.KEY)
-    private _config: ConfigType<typeof MongooseConfig>,
+    @Inject(MongoDBDatabaseProviderConfiguration.KEY)
+    private _config: ConfigType<typeof MongoDBDatabaseProviderConfiguration>,
   ) {}
 
   createMongooseOptions():

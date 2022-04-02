@@ -1,12 +1,12 @@
 import { ReferentialService } from '@app/fdo-core';
 import { Injectable } from '@nestjs/common';
 import { Observable } from 'rxjs';
-import { ParameterReferentialProduct } from './entities/parameter-referential-product.entity';
+import { ParameterReferentialProduct } from '../domain/entities/parameter-referential-product.entity';
 import {
   ReferentialProduct,
   ReferentialProductDocument,
-} from './entities/referential-product.entity';
-import { ReferentialProductRepository } from './referential-product.repository';
+} from '../domain/entities/referential-product.entity';
+import { ReferentialProductRepository } from '../persistence/referential-product.repository';
 
 @Injectable()
 export class ReferentialProductService extends ReferentialService<ReferentialProduct> {

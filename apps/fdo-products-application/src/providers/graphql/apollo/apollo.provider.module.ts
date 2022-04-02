@@ -3,10 +3,11 @@ import {
   ApolloFederationDriverConfig,
 } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
-import { GraphQLModule as NestGraphQLModule } from '@nestjs/graphql';
+import { GraphQLModule } from '@nestjs/graphql';
+
 @Module({
   imports: [
-    NestGraphQLModule.forRoot<ApolloFederationDriverConfig>({
+    GraphQLModule.forRoot<ApolloFederationDriverConfig>({
       driver: ApolloFederationDriver,
       autoSchemaFile: true,
       sortSchema: true,
@@ -15,4 +16,4 @@ import { GraphQLModule as NestGraphQLModule } from '@nestjs/graphql';
     }),
   ],
 })
-export class GraphQLModule {}
+export class ApolloGraphQLProviderModule {}

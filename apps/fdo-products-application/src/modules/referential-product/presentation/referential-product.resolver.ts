@@ -9,14 +9,14 @@ import {
 } from '@nestjs/graphql';
 import { plainToClass } from 'class-transformer';
 import { Observable } from 'rxjs';
-import { ParameterReferentialProduct } from './entities/parameter-referential-product.entity';
+import { ParameterReferentialProduct } from '../domain/entities/parameter-referential-product.entity';
 import {
   ReferentialProduct,
   ReferentialProductDocument,
-} from './entities/referential-product.entity';
+} from '../domain/entities/referential-product.entity';
 import { CreateReferentialProductInput } from './inputs/create-referential-product.input';
 import { UpdateReferentialProductInput } from './inputs/update-referential-product.input';
-import { ReferentialProductService } from './referential-product.service';
+import { ReferentialProductService } from '../business/referential-product.service';
 
 const ReferentialProductBaseResolver = createBaseResolver(ReferentialProduct);
 @Resolver(() => ReferentialProduct)

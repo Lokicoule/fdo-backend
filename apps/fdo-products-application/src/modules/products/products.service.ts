@@ -9,7 +9,7 @@ import {
   Service,
   UseCaseReferentialEnum,
 } from '@app/fdo-core';
-import { ReferentialProductService } from '../referential-product/referential-product.service';
+import { ReferentialProductService } from '../referential-product/business/referential-product.service';
 
 @Injectable()
 export class ProductsService extends Service<Product> {
