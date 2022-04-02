@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
 /* import { ConfigModule  } from '@nestjs/config';
  */
-import { GraphQLModule } from './graphql/graphql.module';
+import { ApolloGraphQLProviderModule } from './graphql/apollo/apollo.provider.module';
 
 @Module({
   imports: [
     /*     NestConfigModule.forRoot({
       envFilePath: ['.env.development', '.env.prod'],
     }), */
-    GraphQLModule,
+    ApolloGraphQLProviderModule,
   ],
 })
-export class ConfigurationsModule {}
+export class ProvidersModule {}

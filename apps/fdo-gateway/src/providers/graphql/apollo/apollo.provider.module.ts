@@ -9,6 +9,7 @@ import { GraphQLModule as NestGraphQLModule } from '@nestjs/graphql';
       gateway: {
         supergraphSdl: new IntrospectAndCompose({
           subgraphs: [
+            { name: 'customers', url: 'http://localhost:3000/graphql' },
             { name: 'products', url: 'http://localhost:3003/graphql' },
           ],
         }),
@@ -16,4 +17,4 @@ import { GraphQLModule as NestGraphQLModule } from '@nestjs/graphql';
     }),
   ],
 })
-export class GraphQLModule {}
+export class ApolloGraphQLProviderModule {}
