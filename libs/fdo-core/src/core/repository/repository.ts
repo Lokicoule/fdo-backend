@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { isEmpty } from 'lodash';
 import { Document, FilterQuery, Model } from 'mongoose';
-import { from, Observable } from 'rxjs';
-import { IRepository } from './repository.interface';
-import { Populate } from './populate/populate';
+import { from, Observable, of, switchMap } from 'rxjs';
 import { NestedPartial } from '../types';
+import { Populate } from './populate/populate';
+import { IRepository } from './repository.interface';
 
 @Injectable()
 export abstract class Repository<T> extends Populate implements IRepository<T> {
@@ -12,8 +12,8 @@ export abstract class Repository<T> extends Populate implements IRepository<T> {
     super();
   }
 
-  create(payload: NestedPartial<T>): Observable<T> {
-    return from(new this.model(payload).save());
+  create(entity: NestedPartial<T>): Observable<T> {
+    return from(new this.model(entity).save());
   }
 
   find(conditions?: Partial<Record<keyof T, unknown>>): Observable<T[]> {
@@ -30,6 +30,18 @@ export abstract class Repository<T> extends Populate implements IRepository<T> {
     if (isEmpty(conditions)) return;
 
     return from(this.model.findOne(conditions as FilterQuery<T>));
+  }
+
+  findOneOrCreate(
+    conditions: Partial<Record<keyof T, unknown>>,
+    entity: NestedPartial<T>,
+  ): Observable<T> {
+    return this.findOne(conditions).pipe(
+      switchMap((value) => {
+        if (value) return of(value);
+        return this.create(entity);
+      }),
+    );
   }
 
   updateById(id: any, entity: NestedPartial<T>): Observable<T> {

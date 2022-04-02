@@ -20,4 +20,9 @@ interface IWriteRepository<T> {
 }
 export interface IRepository<T>
   extends IReadRepository<T>,
-    IWriteRepository<T> {}
+    IWriteRepository<T> {
+  findOneOrCreate(
+    conditions: Partial<Record<keyof T, unknown>>,
+    entity: NestedPartial<T>,
+  ): Observable<T>;
+}

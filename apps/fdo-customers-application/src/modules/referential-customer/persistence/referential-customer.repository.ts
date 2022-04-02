@@ -5,7 +5,7 @@ import {
   ReferentialCustomer,
   ReferentialCustomerDocument,
   ReferentialCustomerName,
-} from './entities/referential-customer.entity';
+} from '../domain/entities/referential-customer.entity';
 
 export class ReferentialCustomerRepository extends Repository<ReferentialCustomer> {
   constructor(

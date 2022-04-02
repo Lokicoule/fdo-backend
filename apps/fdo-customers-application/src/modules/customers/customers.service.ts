@@ -8,7 +8,7 @@ import {
 import { Injectable } from '@nestjs/common';
 import { isEmpty } from 'lodash';
 import { defer, switchMap } from 'rxjs';
-import { ReferentialCustomerService } from '../referential-customer/referential-customer.service';
+import { ReferentialCustomerService } from '../referential-customer/business/referential-customer.service';
 import { CustomersRepository } from './customers.repository';
 import { Customer } from './entities/customer.entity';
 

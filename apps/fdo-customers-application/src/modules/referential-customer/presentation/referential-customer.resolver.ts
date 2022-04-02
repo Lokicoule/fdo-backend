@@ -8,14 +8,14 @@ import {
 } from '@nestjs/graphql';
 import { plainToClass } from 'class-transformer';
 import { Observable } from 'rxjs';
-import { ParameterReferentialCustomer } from './entities/parameter-referential-customer.entity';
+import { ParameterReferentialCustomer } from '../domain/entities/parameter-referential-customer.entity';
 import {
   ReferentialCustomer,
   ReferentialCustomerDocument,
-} from './entities/referential-customer.entity';
+} from '../domain/entities/referential-customer.entity';
 import { CreateReferentialCustomerInput } from './inputs/create-referential-customer.input';
 import { UpdateReferentialCustomerInput } from './inputs/update-referential-customer.input';
-import { ReferentialCustomerService } from './referential-customer.service';
+import { ReferentialCustomerService } from '../business/referential-customer.service';
 
 const ReferentialCustomerBaseResolver = createBaseResolver(ReferentialCustomer);
 @Resolver(() => ReferentialCustomer)
