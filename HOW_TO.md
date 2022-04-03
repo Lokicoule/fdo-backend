@@ -1,22 +1,16 @@
 # fdo-backend-microservice
 
-## GATEWAY
+## Generate apps & libs
 
-- nest new fdo-gateway
+> - nest new fdo-gateway
 
-Packages :
+> - nest generate app fdo-customers-application
+> - nest generate app fdo-products-application
+> - nest generate app fdo-orders-application
 
-> - npm i @apollo/gateway @nestjs/apollo @nestjs/graphql apollo-server-express graphql
+> - nest generate library fdo-core
 
-> - npm i @nestjs/config
-
-## MICRO-SERVICES
-
-nest generate app fdo-customers-application
-nest generate app fdo-products-application
-nest generate app fdo-orders-application
-
-Packages :
+## Install graphql packages
 
 > -npm i @nestjs/graphql @nestjs/apollo graphql apollo-server-express
 
@@ -26,4 +20,11 @@ Packages :
 
 ## Library
 
-nest generate library fdo-core
+# START
+
+- Services :
+  > - npm start fdo-customers-application
+  > - npm start fdo-orders-application
+  > - npm start fdo-products-application
+- Gateway : services should be deployed.
+  > - npm start
