@@ -1,14 +1,14 @@
-import { UseCaseError } from '../../../../core/errors/use-case.error';
+import { UseCaseError } from '../../../errors/use-case.error';
 import { ParameterReferentialEnum } from '../../enums/parameter-referential.enum';
-import { getUpdatedReferentialByCounterIncrementUseCase } from './get-updated-referential-by-counter-increment';
+import { getIncrementedCounterParamUseCase } from './get-incremented-counter-param';
 
 const PREFIX_VALUE = '__';
 const COUNTER_VALUE = 12345;
 
-describe('getUpdatedReferentialByCounterIncrementUseCase', () => {
+describe('getIncrementedCounterParamUseCase', () => {
   it('counter is missing, should throw a UseCaseError', async () => {
     expect(() => {
-      getUpdatedReferentialByCounterIncrementUseCase({
+      getIncrementedCounterParamUseCase({
         parameters: [
           { key: ParameterReferentialEnum.PREFIX, value: PREFIX_VALUE },
         ],
@@ -18,7 +18,7 @@ describe('getUpdatedReferentialByCounterIncrementUseCase', () => {
 
   it('invalid counter value, should throw a UseCaseError', async () => {
     expect(() => {
-      getUpdatedReferentialByCounterIncrementUseCase(
+      getIncrementedCounterParamUseCase(
         {
           parameters: [
             { key: ParameterReferentialEnum.PREFIX, value: PREFIX_VALUE },
@@ -35,7 +35,7 @@ describe('getUpdatedReferentialByCounterIncrementUseCase', () => {
 
   it('should return counter incremented by default incrementor (1)', async () => {
     expect(
-      getUpdatedReferentialByCounterIncrementUseCase({
+      getIncrementedCounterParamUseCase({
         parameters: [
           { key: ParameterReferentialEnum.PREFIX, value: PREFIX_VALUE },
           {
@@ -57,7 +57,7 @@ describe('getUpdatedReferentialByCounterIncrementUseCase', () => {
 
   it('should return counter incremented by argument incrementor (666) ', async () => {
     expect(
-      getUpdatedReferentialByCounterIncrementUseCase(
+      getIncrementedCounterParamUseCase(
         {
           parameters: [
             { key: ParameterReferentialEnum.PREFIX, value: PREFIX_VALUE },
@@ -82,7 +82,7 @@ describe('getUpdatedReferentialByCounterIncrementUseCase', () => {
 
   it('implicit type conversion, should return counter incremented by default incrementor (1) ', async () => {
     expect(
-      getUpdatedReferentialByCounterIncrementUseCase({
+      getIncrementedCounterParamUseCase({
         parameters: [
           { key: ParameterReferentialEnum.PREFIX, value: PREFIX_VALUE },
           {
@@ -103,7 +103,7 @@ describe('getUpdatedReferentialByCounterIncrementUseCase', () => {
   });
   it('counter is missing, should throw a UseCaseError', async () => {
     expect(() => {
-      getUpdatedReferentialByCounterIncrementUseCase({
+      getIncrementedCounterParamUseCase({
         parameters: [
           { key: ParameterReferentialEnum.PREFIX, value: PREFIX_VALUE },
         ],
@@ -113,7 +113,7 @@ describe('getUpdatedReferentialByCounterIncrementUseCase', () => {
 
   it('invalid counter value, should throw a UseCaseError', async () => {
     expect(() => {
-      getUpdatedReferentialByCounterIncrementUseCase(
+      getIncrementedCounterParamUseCase(
         {
           parameters: [
             { key: ParameterReferentialEnum.PREFIX, value: PREFIX_VALUE },
@@ -130,7 +130,7 @@ describe('getUpdatedReferentialByCounterIncrementUseCase', () => {
 
   it('should return counter incremented and keep trailing 0 - test N°1', async () => {
     expect(
-      getUpdatedReferentialByCounterIncrementUseCase({
+      getIncrementedCounterParamUseCase({
         parameters: [
           {
             key: ParameterReferentialEnum.COUNTER,
@@ -149,7 +149,7 @@ describe('getUpdatedReferentialByCounterIncrementUseCase', () => {
   });
   it('should return counter incremented and keep trailing 0 - test N°2 ', async () => {
     expect(
-      getUpdatedReferentialByCounterIncrementUseCase({
+      getIncrementedCounterParamUseCase({
         parameters: [
           {
             key: ParameterReferentialEnum.COUNTER,

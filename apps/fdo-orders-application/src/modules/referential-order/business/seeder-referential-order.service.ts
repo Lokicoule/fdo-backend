@@ -21,7 +21,7 @@ export class SeederReferentialOrderService {
         parameters: [
           {
             key: ParameterReferentialEnum.COUNTER,
-            value: '00001',
+            value: '00000',
           },
           {
             key: ParameterReferentialEnum.SUFFIX,

@@ -1,6 +1,6 @@
 import {
   generateCodeFromParamsUseCase,
-  getUpdatedReferentialByCounterIncrementUseCase,
+  getIncrementedCounterParamUseCase,
   retryWhenDuplicate,
   Service,
   UseCaseReferentialEnum,
@@ -31,7 +31,7 @@ export class CustomersService extends Service<Customer> {
     ).pipe(
       switchMap((customerReferential) =>
         this.referentialService.createOrUpdateCodeGenerator(
-          getUpdatedReferentialByCounterIncrementUseCase(customerReferential),
+          getIncrementedCounterParamUseCase(customerReferential),
         ),
       ),
       switchMap((customerReferential) =>

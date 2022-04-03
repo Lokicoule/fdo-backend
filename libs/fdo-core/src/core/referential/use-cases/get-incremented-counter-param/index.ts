@@ -1,1 +1,1 @@
-export * from './get-updated-referential-by-counter-increment';
+export * from './get-incremented-counter-param';

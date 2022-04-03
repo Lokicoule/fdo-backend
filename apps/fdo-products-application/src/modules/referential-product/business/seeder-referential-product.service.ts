@@ -21,7 +21,7 @@ export class SeederReferentialProductService {
         parameters: [
           {
             key: ParameterReferentialEnum.COUNTER,
-            value: '01',
+            value: '00',
           },
           {
             key: ParameterReferentialEnum.SUFFIX,

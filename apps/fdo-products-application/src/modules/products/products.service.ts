@@ -4,7 +4,7 @@ import { ProductsRepository } from './products.repository';
 import { Product } from './entities/Product.entity';
 import {
   generateCodeFromParamsUseCase,
-  getUpdatedReferentialByCounterIncrementUseCase,
+  getIncrementedCounterParamUseCase,
   retryWhenDuplicate,
   Service,
   UseCaseReferentialEnum,
@@ -31,7 +31,7 @@ export class ProductsService extends Service<Product> {
     ).pipe(
       switchMap((ProductReferential) =>
         this.referentialService.createOrUpdateCodeGenerator(
-          getUpdatedReferentialByCounterIncrementUseCase(ProductReferential),
+          getIncrementedCounterParamUseCase(ProductReferential),
         ),
       ),
       switchMap((ProductReferential) =>
