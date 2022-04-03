@@ -5,6 +5,6 @@ export const MONGO_DB_CONFIG_KEY = 'MONGO_DB_CONFIG_KEY';
 export const MongoDBDatabaseProviderConfiguration = registerAs(
   MONGO_DB_CONFIG_KEY,
   () => ({
-    uri: process.env.MONGO_DB_CUSTOMERS_CONNECTION_STRING,
+    uri: process.env.FDO_CUSTOMERS_DATABASE_MONGO_DB_URI,
   }),
 );

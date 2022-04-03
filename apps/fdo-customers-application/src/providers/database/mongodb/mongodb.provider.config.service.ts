@@ -1,10 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
+import { ConfigType } from '@nestjs/config';
 import {
   MongooseModuleOptions,
   MongooseOptionsFactory,
 } from '@nestjs/mongoose';
 import { MongoDBDatabaseProviderConfiguration } from './mongodb.provider.config';
-import { ConfigType } from '@nestjs/config';
 
 @Injectable()
 export class MongoDBDatabaseProviderConfigurationService
@@ -18,7 +18,6 @@ export class MongoDBDatabaseProviderConfigurationService
   createMongooseOptions():
     | MongooseModuleOptions
     | Promise<MongooseModuleOptions> {
-    console.log(this._config.uri);
     return {
       uri: this._config.uri,
     };

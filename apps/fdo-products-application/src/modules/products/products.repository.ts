@@ -5,8 +5,8 @@ import { Product, ProductDocument } from './entities/product.entity';
 
 export class ProductsRepository extends Repository<Product> {
   constructor(
-    @InjectModel(Product.name) private ProductModel: Model<ProductDocument>,
+    @InjectModel(Product.name) private productModel: Model<ProductDocument>,
   ) {
-    super(ProductModel);
+    super(productModel);
   }
 }
