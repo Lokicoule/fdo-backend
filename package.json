@@ -1,8 +1,8 @@
 {
-  "name": "fdo-gateway",
+  "name": "fdo-backend",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Nest monorepo & microservice backend",
+  "author": "Loïk Fekkaï <loikfekkai@gmail.com>",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
