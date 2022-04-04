@@ -4,17 +4,6 @@ This document present motivation behind technical choices.
 
 # Project folders
 
-- config
-- core
-  - errors
-  - helpers
-  - models
-  - repository
-  - resolver
-  - service
-- features
-- features-referential
-
 # Core
 
 ### Core->Resolver
