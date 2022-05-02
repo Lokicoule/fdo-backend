@@ -34,10 +34,10 @@ export class ReferentialCustomerResolver extends ReferentialCustomerBaseResolver
 
   @Mutation(() => ReferentialCustomer)
   updateReferentialCustomer(
-    @Args('id') id: string,
     @Args('updateReferentialCustomerInput')
     payload: UpdateReferentialCustomerInput,
   ): Observable<ReferentialCustomer> {
+    const { id } = payload;
     return this.service.update(id, plainToClass(ReferentialCustomer, payload));
   }
 

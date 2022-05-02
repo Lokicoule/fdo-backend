@@ -3,4 +3,4 @@ import { InputType } from '@nestjs/graphql';
 
 const KeyValueInput = createKeyValueInput(ParameterReferentialEnum);
 @InputType()
-export class ParameterReferentialCustomerInput extends KeyValueInput {}
+export class CreateParameterReferentialCustomerInput extends KeyValueInput {}
