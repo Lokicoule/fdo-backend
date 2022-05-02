@@ -1,10 +1,10 @@
 import {
+  addDays,
+  generateCodeFromParamsUseCase,
+  getIncrementedCounterParamUseCase,
+  retryWhenDuplicate,
   Service,
   UseCaseReferentialEnum,
-  getIncrementedCounterParamUseCase,
-  generateCodeFromParamsUseCase,
-  retryWhenDuplicate,
-  addDays,
 } from '@app/fdo-core';
 import { Injectable } from '@nestjs/common';
 import { defer, switchMap } from 'rxjs';
@@ -19,6 +19,12 @@ export class OrdersService extends Service<Order> {
     private readonly referentialService: ReferentialOrderService,
   ) {
     super(orderRepository);
+  }
+
+  findAllByCustomerId(customerId: string) {
+    return this.orderRepository.find({
+      customer: { id: customerId },
+    });
   }
 
   override create(payload: Order) {

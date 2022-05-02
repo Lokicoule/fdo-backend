@@ -1,5 +1,5 @@
 import { createBaseResolver } from '@app/fdo-core';
-import { Args, Mutation, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Resolver, ResolveReference } from '@nestjs/graphql';
 import { plainToClass } from 'class-transformer';
 import { Observable } from 'rxjs';
 import { CustomersService } from './customers.service';
@@ -30,5 +30,13 @@ export class CustomersResolver extends CustomersBaseResolver {
     payload: UpdateCustomerInput,
   ): Observable<Customer> {
     return this.service.update(id, plainToClass(Customer, payload));
+  }
+
+  @ResolveReference()
+  resolveReference(reference: {
+    __typename: string;
+    _id: string;
+  }): Observable<Customer> {
+    return this.service.findById(reference._id);
   }
 }

@@ -35,7 +35,7 @@ export class ProductsResolver extends ProductsBaseResolver {
   @ResolveReference()
   resolveReference(reference: {
     __typename: string;
-    id: number;
+    id: string;
   }): Observable<Product> {
     return this.service.findById(reference.id);
   }

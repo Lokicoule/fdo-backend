@@ -1,0 +1,111 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+directive @extends on INTERFACE | OBJECT
+
+directive @external on FIELD_DEFINITION | OBJECT
+
+directive @key(fields: String!) on INTERFACE | OBJECT
+
+directive @provides(fields: String!) on FIELD_DEFINITION
+
+directive @requires(fields: String!) on FIELD_DEFINITION
+
+input CreateCustomerInput {
+  address: String!
+  city: String!
+  code: String
+  naming: String!
+  zipCode: String!
+}
+
+input CreateParameterReferentialCustomerInput {
+  key: ParameterReferentialEnum!
+  value: String!
+}
+
+input CreateReferentialCustomerInput {
+  parameters: [CreateParameterReferentialCustomerInput!]!
+  useCase: UseCaseReferentialEnum!
+}
+
+type Customer {
+  address: String!
+  city: String!
+  code: String!
+  createdAt: DateTime
+  id: ID!
+  naming: String!
+  updatedAt: DateTime
+  zipCode: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Mutation {
+  createCustomer(createCustomerInput: CreateCustomerInput!): Customer!
+  createReferentialCustomer(createReferentialCustomerInput: CreateReferentialCustomerInput!): ReferentialCustomer!
+  removeCustomer(id: String!): Customer!
+  removeCustomers(ids: [String!]!): Boolean!
+  removeReferentialCustomer(id: String!): ReferentialCustomer!
+  removeReferentialCustomers(ids: [String!]!): Boolean!
+  updateCustomer(id: String!, updateCustomerInput: UpdateCustomerInput!): Customer!
+  updateReferentialCustomer(updateReferentialCustomerInput: UpdateReferentialCustomerInput!): ReferentialCustomer!
+}
+
+type ParameterReferentialCustomer {
+  createdAt: DateTime
+  id: ID!
+  key: ParameterReferentialEnum!
+  updatedAt: DateTime
+  value: String!
+}
+
+enum ParameterReferentialEnum {
+  COUNTER
+  PREFIX
+  SUFFIX
+}
+
+type Query {
+  getCustomer(id: String!): Customer
+  getCustomers: [Customer!]
+  getReferentialCustomer(id: String!): ReferentialCustomer
+  getReferentialCustomers: [ReferentialCustomer!]
+}
+
+type ReferentialCustomer {
+  createdAt: DateTime
+  id: ID!
+  parameters(populate: Boolean!): [ParameterReferentialCustomer!]
+  updatedAt: DateTime
+  useCase: UseCaseReferentialEnum!
+}
+
+input UpdateCustomerInput {
+  address: String
+  city: String
+  code: String
+  naming: String
+  zipCode: String
+}
+
+input UpdateParameterReferentialCustomerInput {
+  id: ID!
+  key: ParameterReferentialEnum
+  value: String
+}
+
+input UpdateReferentialCustomerInput {
+  id: ID!
+  parameters: [UpdateParameterReferentialCustomerInput!]!
+  useCase: UseCaseReferentialEnum!
+}
+
+enum UseCaseReferentialEnum {
+  CODE_GENERATOR
+}

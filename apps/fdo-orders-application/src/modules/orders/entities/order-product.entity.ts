@@ -1,12 +1,16 @@
 import { GqlEntity } from '@app/fdo-core';
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, ID, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-@Schema()
+@Schema({ _id: false })
 @ObjectType()
-export class OrderProduct extends GqlEntity {
+export class OrderProduct {
+  @Field(() => ID)
+  @Prop({ type: String, required: true })
+  id: string;
+
   @Field(() => String)
-  @Prop({ type: String, required: true, uppercase: true, unique: true })
+  @Prop({ type: String, required: true, uppercase: true })
   code: string;
 
   @Field(() => String)

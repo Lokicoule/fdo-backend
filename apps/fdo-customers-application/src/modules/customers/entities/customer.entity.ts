@@ -1,10 +1,12 @@
 import { GqlEntity } from '@app/fdo-core';
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Directive, Field, ID, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
 @Schema({ timestamps: true })
 @ObjectType()
+/* @Directive('@key(fields: "_id")')
+ */
 export class Customer extends GqlEntity {
   @Field(() => String)
   @Prop({ type: String, required: true, uppercase: true, unique: true })

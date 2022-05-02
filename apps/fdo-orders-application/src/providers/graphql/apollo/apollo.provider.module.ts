@@ -4,6 +4,7 @@ import {
 } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
+import { Customer } from '../../../modules/orders/entities/customer.entity';
 
 @Module({
   imports: [
@@ -13,6 +14,9 @@ import { GraphQLModule } from '@nestjs/graphql';
       sortSchema: true,
       playground: true,
       introspection: true,
+      /*  buildSchemaOptions: {
+        orphanedTypes: [Customer],
+      }, */
     }),
   ],
 })

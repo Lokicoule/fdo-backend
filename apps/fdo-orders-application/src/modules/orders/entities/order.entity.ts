@@ -1,5 +1,5 @@
 import { addDays, GqlEntity } from '@app/fdo-core';
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Directive, Field, ID, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { OrderCustomer, OrderCustomerSchema } from './order-customer.entity';
@@ -7,6 +7,8 @@ import { OrderItem, OrderItemSchema } from './order-item.entity';
 
 @Schema({ timestamps: true })
 @ObjectType()
+/* @Directive('@key(fields: "_id")')
+ */
 export class Order extends GqlEntity {
   @Field(() => String)
   @Prop({ type: String, required: true, uppercase: true, unique: true })

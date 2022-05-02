@@ -29,6 +29,7 @@ export function genericRetryWhen<T>({
             error: Error,
           }),
           map(({ count, error }) => {
+            console.log(error);
             if (allowedStatusCodes.find((e) => assertError(error, e))) {
               if (count < maxRetryAttempts) return { count, error };
               throw new TechnicalError('Try again later.');
