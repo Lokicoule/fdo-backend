@@ -1,4 +1,4 @@
-import { Field, ID, InputType, OmitType, PartialType } from '@nestjs/graphql';
+import { Field, ID, InputType, OmitType } from '@nestjs/graphql';
 import { CodeGeneratorParamsRule } from '../validators/code-generator-params.decorator';
 import { CreateReferentialProductInput } from './create-referential-product.input';
 import { UpdateParameterReferentialProductInput } from './update-parameter-referential-product.input';
