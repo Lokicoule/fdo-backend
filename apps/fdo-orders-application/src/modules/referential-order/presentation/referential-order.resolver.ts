@@ -34,10 +34,10 @@ export class ReferentialOrderResolver extends ReferentialOrderBaseResolver {
 
   @Mutation(() => ReferentialOrder)
   updateReferentialOrder(
-    @Args('id') id: string,
     @Args('updateReferentialOrderInput')
     payload: UpdateReferentialOrderInput,
   ): Observable<ReferentialOrder> {
+    const { id } = payload;
     return this.service.update(id, plainToClass(ReferentialOrder, payload));
   }
 
